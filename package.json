@@ -1,0 +1,21 @@
+{
+  "name": "s3-photo-exif-db",
+  "version": "1.0.0",
+  "author": "Yaakov Belch",
+  "private": true,
+  "description": "From S3 bucket: load photos, extract exif data, store to data base.",
+  "repository": "git@github.com:Yaakov-Belch/s3-photo-exif-db.git",
+  "homepage": "https:github.com:Yaakov-Belch/s3-photo-exif-db#readme",
+  "bugs": {
+    "url": "https:github.com:Yaakov-Belch/s3-photo-exif-db/issues"
+  },
+  "scripts": {
+    "test": "tape tests/**/*.js"
+  },
+  "devDependencies": {
+    "blue-tape": "^1.0.0"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.6"
+  }
+}
