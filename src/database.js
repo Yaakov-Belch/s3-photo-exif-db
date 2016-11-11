@@ -1,5 +1,5 @@
-const Promise=require('bluebird');
-const mongodb = require('mongodb');
+import Promise from 'bluebird';
+import mongodb from 'mongodb';
 
 export const openDb= (dbSpec)=>
   mongodb.MongoClient.connect(dbSpec.url);

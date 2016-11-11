@@ -1,9 +1,10 @@
-const Promise=require('bluebird');
-const URL=require('url');
-const fetch=require('node-fetch');
+import Promise from 'bluebird';
+import URL     from 'url';
+import fetch   from 'node-fetch';
+import {parseString} from 'xml2js';
 
-// xml2js(string) returns a promise of a jsObject.
-const xml2js=Promise.promisify(require('xml2js').parseString);
+// xml2data(string) returns a promise of a jsObject.
+const xml2data=Promise.promisify(parseString);
 
 const bucketUrl=(bucketSpec)=>URL.format({
   protocol:'https',
@@ -20,7 +21,7 @@ export const getPhotoIdList=(bucketSpec)=>{
   const url=bucketUrl(bucketSpec);
   return fetch(url)
     .then(r=>r.text())
-    .then(xml2js)
+    .then(xml2data)
     .then(r=>r.ListBucketResult.Contents)
     .then(r=>r.map(d=>d.Key[0]));
 };
