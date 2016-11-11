@@ -3,11 +3,20 @@ import {getPhotoIdList, getPhotoBuffer} from './s3.js';
 import {buffer2Exif} from './exif.js';
 import {openDb, addExif, checkExif, closeDb} from './database.js';
 
-export const newLogger=()=>(key,data)=>
-  console.log(key,data);
+export const exifDbLoader=async(bucketSpec,dbSpec,spec,logger)=>{
+  logger && logger('exifDbLoader', {bucketSpec,dbSpec,spec});
+  const db=await openDb(dbSpec);
+  try {
 
-export const fetchExif= async (bucketSpec,id,logger)=>
-  buffer2Exif(await getPhotoBuffer(bucketSpec,id,logger), bucketSpec);
+    const list= await getPhotoIdList(bucketSpec);
+    await parallelFetchAndStore(list,bucketSpec,db,spec,logger);
+
+  } finally {
+    await closeDb(db);
+    logger && logger('exifDbLoader.done',{});
+    return true;
+  }
+};
 
 export const parallelFetchAndStore=
   async (list,bucketSpec,db,spec,logger)=> {
@@ -20,8 +29,10 @@ export const parallelFetchAndStore=
           logger && logger('skipOld',{id});
           return true;
         }
+
         const exif =await fetchExif(bucketSpec,id,logger);
         return await addExif(db,id,exif,logger);
+
       },
       {concurrency}
     );
@@ -29,12 +40,10 @@ export const parallelFetchAndStore=
     return true;
   };
 
-export const exifDbLoader=async(bucketSpec,dbSpec,spec,logger)=>{
-  const db=await openDb(dbSpec);
-  try {
-    const list= await getPhotoIdList(bucketSpec);
-    await parallelFetchAndStore(list,bucketSpec,db,spec,logger);
-  } finally {
-    await closeDb(db);
-  }
-};
+export const fetchExif= async (bucketSpec,id,logger)=>
+  buffer2Exif(await getPhotoBuffer(bucketSpec,id,logger), bucketSpec);
+
+export const newLogger=(t)=>(key,data)=>
+  t? (t.comment(key+':'),t.comment(JSON.stringify(data,null,2)))
+   : console.log(key,data);
+

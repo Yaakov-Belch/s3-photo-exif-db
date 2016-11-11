@@ -1,1 +1,5 @@
 !* NODE_TLS_REJECT_UNAUTHORIZED=0 npm run test1
+
+* main application; command line options
+* fetch only part of the file
+

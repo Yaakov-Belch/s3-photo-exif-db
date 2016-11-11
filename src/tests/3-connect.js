@@ -11,15 +11,15 @@ import {
   dbSpec,
 } from '../zSamples';
 
-test('first photo: fetchExif', async t=>{
-  const logger=newLogger();
+test.only('first photo: fetchExif', async t=>{
+  const logger=newLogger(t);
   t.plan(1);
   const exif=await fetchExif(bucketSpec,firstPhotoId,logger);
   t.equal(exif[exifKey1], exifValue1, 'check fetchExif');
 });
 
 test('fetch two and the third photo exif', async t=>{
-  const logger=newLogger();
+  const logger=newLogger(t);
   const spec={concurrency:1, skipOld:true};
   const db=await openDb(dbSpec);
   try {
@@ -37,8 +37,8 @@ test('fetch two and the third photo exif', async t=>{
   }
 });
 
-test.only('run full app', async t=>{
-  const logger=newLogger();
+test('run full app', async t=>{
+  const logger=newLogger(t);
   const spec={concurrency:1, skipOld:true};
   await exifDbLoader(bucketSpec,dbSpec,spec,logger);
 });
