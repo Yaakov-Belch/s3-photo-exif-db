@@ -36,10 +36,18 @@ test('getPhotoBuffer sample length', t=>{
 
 
 test.only('extract exif from photo on disk',t=>{
-  t.plan(2);
+  t.plan(3);
+
   const buffer=fs.readFileSync('Z/image.jpg');
   t.equal(buffer.length,32764,'check image size');
 
-  t.equal(exif.extract(buffer).Make, 'Canon', 'check exif.Make');
+  const data=exif.extract(buffer);
+  t.equal(data.tags.Make, 'Canon', 'check raw Make');
+
+  t.equal(
+    exif.trafo(data,'id1',bucketSpec).Make,
+    'Canon',
+    'check final Make'
+  );
 });
 
