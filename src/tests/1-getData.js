@@ -1,5 +1,5 @@
-const test = require('blue-tape');
-const fs   = require('fs');
+const test=require('blue-tape');
+const fs  =require('fs');
 
 const s3  = require('../s3.js');
 const exif= require('../exif.js');

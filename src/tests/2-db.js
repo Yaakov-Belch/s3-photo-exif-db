@@ -1,14 +1,13 @@
-const test = require('blue-tape');
+import test from 'blue-tape';
+import {openDb, newEmptyDb, addPhoto, closeDb} from '../database.js';
 
-const database=require('../database.js');
 const dbSpec= {
   url:'mongodb://localhost:27017/test',
 };
 
 
 test('connect to database',t=>{
-  return database.newEmptyDb(dbSpec)
-    .then(db=>database.addPhoto(db,{hello:'world'},'id1'))
-    // .then(db=>database.addPhoto(db,{hello:'world'},'id1'))
-    .then(db=>database.close(db));
+  return newEmptyDb(dbSpec)
+    .then(db=>addPhoto(db,{hello:'world'},'id1'))
+    .then(db=>closeDb(db));
 });

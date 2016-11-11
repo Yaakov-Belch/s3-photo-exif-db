@@ -12,7 +12,8 @@
   "scripts": {
     "build": "babel src -d lib",
     "build-watch": "babel src -d lib -w",
-    "test": "tape lib/tests/**/*.js"
+    "test": "tape lib/tests/**/*.js",
+    "test1": "tape lib/tests/1-getData.js"
   },
   "babel": {
     "presets": [
