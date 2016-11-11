@@ -2,9 +2,7 @@ import test from 'blue-tape';
 import {openDb, clearDb, addExif, checkExif, closeDb}
   from '../database.js';
 
-const dbSpec= {
-  url:'mongodb://localhost:27017/test',
-};
+import {dbSpec} from '../zSamples';
 
 test('clear/write/check in database', async t=>{
   t.plan(5);
