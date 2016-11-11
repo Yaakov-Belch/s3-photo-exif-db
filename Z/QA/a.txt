@@ -1,0 +1,4 @@
+!* NODE_TLS_REJECT_UNAUTHORIZED=0 node lib/app.js
+!* NODE_TLS_REJECT_UNAUTHORIZED=0 npm run test
+
+

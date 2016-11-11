@@ -1,0 +1,52 @@
+{
+  "name": "s3-photo-exif-db",
+  "version": "1.0.0",
+  "author": "Yaakov Belch",
+  "private": true,
+  "description": "From S3 bucket: load photos, extract exif data, store to data base.",
+  "repository": "git@github.com:Yaakov-Belch/s3-photo-exif-db.git",
+  "homepage": "https:github.com:Yaakov-Belch/s3-photo-exif-db#readme",
+  "bugs": {
+    "url": "https:github.com:Yaakov-Belch/s3-photo-exif-db/issues"
+  },
+  "scripts": {
+    "build": "babel src -d lib",
+    "build-watch": "babel src -d lib -w",
+    "test": "tape lib/tests/**/*.js",
+    "app":  "node lib/app.js"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-2"
+    ],
+    "plugins": [
+      "transform-runtime",
+      "syntax-async-functions",
+      [
+        "transform-async-to-module-method",
+        {
+          "module": "bluebird",
+          "method": "coroutine"
+        }
+      ]
+    ]
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-plugin-syntax-async-functions": "^6.13.0",
+    "babel-plugin-transform-async-to-module-method": "^6.16.0",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-2": "^6.18.0",
+    "blue-tape": "^1.0.0"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "exif-parser": "^0.1.9",
+    "mongodb": "^2.2.11",
+    "node-fetch": "^1.6.3",
+    "xml2js": "^0.4.17"
+  }
+}
