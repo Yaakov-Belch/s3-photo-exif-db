@@ -1,6 +1,6 @@
 const test = require('blue-tape');
 
-const database=require('../lib/database.js');
+const database=require('../database.js');
 const dbSpec= {
   url:'mongodb://localhost:27017/test',
 };

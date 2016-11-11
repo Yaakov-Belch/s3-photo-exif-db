@@ -1,8 +1,8 @@
 const test = require('blue-tape');
 const fs   = require('fs');
 
-const s3  = require('../lib/s3.js');
-const exif= require('../lib/exif.js');
+const s3  = require('../s3.js');
+const exif= require('../exif.js');
 
 
 const bucketSpec={
