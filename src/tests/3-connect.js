@@ -11,7 +11,7 @@ import {
   dbSpec,
 } from '../zSamples';
 
-test.only('first photo: fetchExif', async t=>{
+test('first photo: fetchExif', async t=>{
   const logger=newLogger(t);
   t.plan(1);
   const exif=await fetchExif(bucketSpec,firstPhotoId,logger);

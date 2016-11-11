@@ -20,16 +20,18 @@ const main=(args)=>{
   });
 
   let {endPoint,bucket,dbUrl,concurrency,skipOld,verbose}=opts;
+
   concurrency=parseInt(concurrency);
   skipOld=!!skipOld;
+
   const bucketSpec={endPoint,bucket};
   const dbSpec={dbUrl};
   const spec={concurrency,skipOld};
-
   const logger=verbose && newLogger();
 
   exifDbLoader(bucketSpec,dbSpec,spec,logger);
 };
+
 main(process.argv.splice(2))
 
 
