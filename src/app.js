@@ -5,7 +5,7 @@ const main=(args)=>{
   const opts={
     endPoint: 's3.amazonaws.com',
     bucket: 'waldo-recruiting',
-    dbUrl:'mongodb://localhost:27017/test',
+    dbUrl:'mongodb://localhost:27017/production',
     concurrency:3,
     skipOld:false,
     verbose:true,
