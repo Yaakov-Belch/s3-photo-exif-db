@@ -17,8 +17,10 @@ const photoUrl=(bucketSpec,id)=>URL.format({
   pathname:`${bucketSpec.bucket}/${id}`
 });
 
-export const getPhotoIdList=(bucketSpec)=>{
+export const getPhotoIdList=(bucketSpec,logger)=>{
   const url=bucketUrl(bucketSpec);
+  logger && logger('getPhotoIdList',bucketSpec,url);
+
   return fetch(url)
     .then(r=>r.text())
     .then(xml2data)
@@ -26,8 +28,10 @@ export const getPhotoIdList=(bucketSpec)=>{
     .then(r=>r.map(d=>d.Key[0]));
 };
 
-export const getPhotoBuffer=(bucketSpec,id)=>{
-  const url=photoUrl(bucketSpec,id)
+export const getPhotoBuffer=(bucketSpec,id,logger)=>{
+  const url=photoUrl(bucketSpec,id);
+  logger && logger('getPhotoBuffer',{id,url});
+
   return fetch(url)
     .then(r=>r.buffer());
 };
