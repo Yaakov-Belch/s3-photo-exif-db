@@ -4,19 +4,13 @@ import mongodb from 'mongodb';
 export const openDb= (dbSpec)=>
   mongodb.MongoClient.connect(dbSpec.url);
 
-export const newEmptyDb=(dbSpec)=>
-  openDb(dbSpec)
-    .then(deleteAllPhotos);
-
-const deleteAllPhotos=(db)=>
-  db.collection('photos')
-    .remove({})
-    .then(()=>db);
+export const clearDb=(db)=>
+  db.collection('photos').remove({})
 
 export const addPhoto=(db,data,id)=>
   db.collection('photos')
     .insertOne(Object.assign({},data,{_id:id}))
-    .then(()=>db);
 
-export const closeDb= (db)=> db.close();
+export const closeDb= (db)=>
+  db.close();
 

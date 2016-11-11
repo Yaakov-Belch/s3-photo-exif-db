@@ -15,7 +15,7 @@ const firstPhotoId=
   '0003b8d6-d2d8-4436-a398-eab8d696f0f9.68cccdd4-e431-457d-8812-99ab561bf867.jpg';
 const firstPhotoSize=6306109;
 
-test('getPhotoIdList sample from bucketUrl', async (t)=>{
+test('getPhotoIdList sample from bucketUrl', async t=>{
   t.plan(3);
   const list= await getPhotoIdList(bucketSpec);
   t.ok(Array.isArray(list),'return an array of ids');
@@ -23,14 +23,14 @@ test('getPhotoIdList sample from bucketUrl', async (t)=>{
   t.equal(list[0],firstPhotoId,'first photo id');
 });
 
-test('getPhotoBuffer sample length', async (t)=>{
+test('getPhotoBuffer sample length', async t=>{
   t.plan(1);
   const buffer= await getPhotoBuffer(bucketSpec,firstPhotoId);
   t.equal(buffer.length,firstPhotoSize,'first photo size')
 });
 
 
-test('extract exif from photo on disk', async (t)=>{
+test('extract exif from photo on disk', async t=>{
   t.plan(3);
   const buffer=fs.readFileSync('Z/image.jpg');
   t.equal(buffer.length,32764,'check image size');

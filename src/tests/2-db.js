@@ -1,13 +1,13 @@
 import test from 'blue-tape';
-import {openDb, newEmptyDb, addPhoto, closeDb} from '../database.js';
+import {openDb, clearDb, addPhoto, closeDb} from '../database.js';
 
 const dbSpec= {
   url:'mongodb://localhost:27017/test',
 };
 
-
-test('connect to database',t=>{
-  return newEmptyDb(dbSpec)
-    .then(db=>addPhoto(db,{hello:'world'},'id1'))
-    .then(db=>closeDb(db));
+test('connect to database', async t=>{
+  const db=await openDb(dbSpec);
+  await clearDb(db);
+  await addPhoto(db,{hello:'world'},'id1');
+  await closeDb(db);
 });
