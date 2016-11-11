@@ -1,6 +1,9 @@
 const test = require('blue-tape');
 const fs   = require('fs');
-const s3=require('../lib/s3access.js');
+
+const s3access=    require('../lib/s3access.js');
+const exif= require('../lib/exif.js');
+
 
 const bucketSpec={
   endPoint: 's3.amazonaws.com',
@@ -14,7 +17,7 @@ const firstPhotoSize=6306109;
 
 test('getPhotoIdList sample from bucketUrl', t=>{
   t.plan(3);
-  s3.getPhotoIdList(bucketSpec)
+  s3access.getPhotoIdList(bucketSpec)
     .then(list=>{
       t.ok(Array.isArray(list),'return an array of ids');
       t.equal(list.length,sampleLength, 'length of sample list');
@@ -25,15 +28,18 @@ test('getPhotoIdList sample from bucketUrl', t=>{
 
 test('getPhotoBuffer sample length', t=>{
   t.plan(1);
-  s3.getPhotoBuffer(bucketSpec,firstPhotoId)
+  s3access.getPhotoBuffer(bucketSpec,firstPhotoId)
     .then(buffer=>{
       t.equal(buffer.length,firstPhotoSize,'first photo size')
     });
 });
 
 
-test('read image from disk',t=>{
+test.only('extract exif from photo on disk',t=>{
+  t.plan(2);
   const buffer=fs.readFileSync('Z/image.jpg');
-  t.equal(buffer.length,32764);
-  t.end();
+  t.equal(buffer.length,32764,'check image size');
+
+  t.equal(exif.extract(buffer).Make, 'Canon', 'check exif.Make');
 });
+
