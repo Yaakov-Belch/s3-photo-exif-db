@@ -28,11 +28,11 @@ test('extract exif from photo on disk', async t=>{
   const buffer=fs.readFileSync(imageFile);
   t.equal(buffer.length,imageFileSize,'check image size');
 
-  const data=extractExif(buffer);
-  t.equal(data.tags[exifKey0], exifValue0, 'check raw Make');
+  const exif=extractExif(buffer);
+  t.equal(exif.tags[exifKey0], exifValue0, 'check extractExif');
 
   t.equal(
-    trafoExif(data,bucketSpec)[exifKey0],
+    trafoExif(exif,bucketSpec)[exifKey0],
     exifValue0,
     'check trafoExif'
   );

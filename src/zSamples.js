@@ -15,6 +15,9 @@ export const sampleLength=129;
 export const firstPhotoId=
   '0003b8d6-d2d8-4436-a398-eab8d696f0f9.68cccdd4-e431-457d-8812-99ab561bf867.jpg';
 export const firstPhotoSize=6306109;
+export const exifKey1='Make';
+export const exifValue1='NIKON CORPORATION';
+
 
 // Out test mongodb data base runs locally:
 export const dbSpec= {

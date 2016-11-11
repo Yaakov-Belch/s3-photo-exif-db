@@ -7,13 +7,13 @@ export const openDb= (dbSpec)=>
 export const clearDb=(db)=>
   db.collection('exif').remove({});
 
-export const addExif=(db,_id,data)=>
+export const addExif=(db,id,exif)=>
   db.collection('exif')
-    .findOneAndUpdate({_id}, {$setOnInsert:data},{new:true, upsert:true})
-    .then(r=>!r.value); // return promise of true if _id was new.
+    .findOneAndUpdate({_id:id}, {$setOnInsert:exif},{new:true, upsert:true})
+    .then(r=>!r.value); // return promise of true if id was new.
 
-export const checkExif=(db,_id)=>
-  db.collection('exif').find({_id}).limit(1).count();
+export const checkExif=(db,id)=>
+  db.collection('exif').find({_id:id}).limit(1).count();
 
 export const closeDb= (db)=>
   db.close();
