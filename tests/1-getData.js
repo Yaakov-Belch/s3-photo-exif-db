@@ -35,7 +35,7 @@ test('getPhotoBuffer sample length', t=>{
 });
 
 
-test.only('extract exif from photo on disk',t=>{
+test('extract exif from photo on disk',t=>{
   t.plan(3);
 
   const buffer=fs.readFileSync('Z/image.jpg');
