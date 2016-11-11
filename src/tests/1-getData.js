@@ -1,5 +1,5 @@
-const test=require('blue-tape');
-const fs  =require('fs');
+import test from 'blue-tape';
+import fs   from 'fs';
 
 const s3  = require('../s3.js');
 const exif= require('../exif.js');
@@ -35,7 +35,7 @@ test('getPhotoBuffer sample length', t=>{
 });
 
 
-test('extract exif from photo on disk',t=>{
+test.only('extract exif from photo on disk',t=>{
   t.plan(3);
 
   const buffer=fs.readFileSync('Z/image.jpg');
