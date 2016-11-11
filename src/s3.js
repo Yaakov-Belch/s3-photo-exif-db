@@ -1,4 +1,3 @@
-
 const Promise=require('bluebird');
 const URL=require('url');
 const fetch=require('node-fetch');
@@ -17,7 +16,7 @@ const photoUrl=(bucketSpec,id)=>URL.format({
   pathname:`${bucketSpec.bucket}/${id}`
 });
 
-const getPhotoIdList=(bucketSpec)=>{
+export const getPhotoIdList=(bucketSpec)=>{
   const url=bucketUrl(bucketSpec);
   return fetch(url)
     .then(r=>r.text())
@@ -26,10 +25,9 @@ const getPhotoIdList=(bucketSpec)=>{
     .then(r=>r.map(d=>d.Key[0]));
 };
 
-const getPhotoBuffer=(bucketSpec,id)=>{
+export const getPhotoBuffer=(bucketSpec,id)=>{
   const url=photoUrl(bucketSpec,id)
   return fetch(url)
     .then(r=>r.buffer());
 };
 
-module.exports={getPhotoIdList, getPhotoBuffer};
