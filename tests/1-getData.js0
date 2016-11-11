@@ -1,7 +1,7 @@
 const test = require('blue-tape');
 const fs   = require('fs');
 
-const s3access=    require('../lib/s3access.js');
+const s3  = require('../lib/s3.js');
 const exif= require('../lib/exif.js');
 
 
@@ -17,7 +17,7 @@ const firstPhotoSize=6306109;
 
 test('getPhotoIdList sample from bucketUrl', t=>{
   t.plan(3);
-  s3access.getPhotoIdList(bucketSpec)
+  s3.getPhotoIdList(bucketSpec)
     .then(list=>{
       t.ok(Array.isArray(list),'return an array of ids');
       t.equal(list.length,sampleLength, 'length of sample list');
@@ -28,7 +28,7 @@ test('getPhotoIdList sample from bucketUrl', t=>{
 
 test('getPhotoBuffer sample length', t=>{
   t.plan(1);
-  s3access.getPhotoBuffer(bucketSpec,firstPhotoId)
+  s3.getPhotoBuffer(bucketSpec,firstPhotoId)
     .then(buffer=>{
       t.equal(buffer.length,firstPhotoSize,'first photo size')
     });
