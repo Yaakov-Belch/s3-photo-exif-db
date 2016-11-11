@@ -39,6 +39,6 @@ test('fetch two and the third photo exif', async t=>{
 
 test('run full app', async t=>{
   const logger=newLogger(t);
-  const spec={concurrency:1, skipOld:true};
+  const spec={concurrency:3, skipOld:true};
   await exifDbLoader(bucketSpec,dbSpec,spec,logger);
 });
