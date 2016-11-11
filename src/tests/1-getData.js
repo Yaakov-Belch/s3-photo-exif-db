@@ -2,7 +2,7 @@ import test from 'blue-tape';
 import fs   from 'fs';
 
 import {getPhotoIdList, getPhotoBuffer} from '../s3.js';
-const exif= require('../exif.js');
+import {extractExif, trafoExif} from '../exif.js';
 
 
 const bucketSpec={
@@ -15,7 +15,7 @@ const firstPhotoId=
   '0003b8d6-d2d8-4436-a398-eab8d696f0f9.68cccdd4-e431-457d-8812-99ab561bf867.jpg';
 const firstPhotoSize=6306109;
 
-test.only('getPhotoIdList sample from bucketUrl', t=>{
+test('getPhotoIdList sample from bucketUrl', t=>{
   t.plan(3);
   getPhotoIdList(bucketSpec)
     .then(list=>{
@@ -41,11 +41,11 @@ test('extract exif from photo on disk',t=>{
   const buffer=fs.readFileSync('Z/image.jpg');
   t.equal(buffer.length,32764,'check image size');
 
-  const data=exif.extract(buffer);
+  const data=extractExif(buffer);
   t.equal(data.tags.Make, 'Canon', 'check raw Make');
 
   t.equal(
-    exif.trafo(data,'id1',bucketSpec).Make,
+    trafoExif(data,'id1',bucketSpec).Make,
     'Canon',
     'check final Make'
   );

@@ -1,8 +1,8 @@
 const parserFactory=require('exif-parser');
 
-const trafo= (data,id,bucketSpec)=>data.tags;
+export const extractExif= (buffer) => parserFactory.create(buffer).parse();
 
-const extract= (buffer) => parserFactory.create(buffer).parse();
+export const trafoExif= (data,id,bucketSpec)=>data.tags;
 
-module.exports={extract, trafo};
+module.exports={extractExif, trafoExif};
  
