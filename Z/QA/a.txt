@@ -1,3 +1,4 @@
+!* NODE_TLS_REJECT_UNAUTHORIZED=0 node lib/app.js hello=world
 !* NODE_TLS_REJECT_UNAUTHORIZED=0 npm run test1
 
 * main application; command line options

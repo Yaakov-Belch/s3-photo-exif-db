@@ -21,7 +21,7 @@ export const exifValue1='NIKON CORPORATION';
 
 // Out test mongodb data base runs locally:
 export const dbSpec= {
-  url:'mongodb://localhost:27017/test',
+  dbUrl:'mongodb://localhost:27017/test',
 };
 
 
