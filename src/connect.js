@@ -8,6 +8,7 @@ export const exifDbLoader=async(bucketSpec,dbSpec,spec,logger)=>{
   const db=await openDb(dbSpec);
   try {
 
+    // main logic:
     const list= await getPhotoIdList(bucketSpec);
     await parallelFetchAndStore(list,bucketSpec,db,spec,logger);
 
@@ -30,6 +31,7 @@ export const parallelFetchAndStore=
           return true;
         }
 
+        // main logic:
         const exif =await fetchExif(bucketSpec,id,logger);
         return await addExif(db,id,exif,logger);
 
@@ -40,10 +42,16 @@ export const parallelFetchAndStore=
     return true;
   };
 
-export const fetchExif= async (bucketSpec,id,logger)=>
-  buffer2Exif(await getPhotoBuffer(bucketSpec,id,logger), bucketSpec);
+export const fetchExif= async (bucketSpec,id,logger)=> {
+  const buffer=await getPhotoBuffer(bucketSpec,id,logger);
+  return buffer2Exif(buffer, bucketSpec);
+};
 
-export const newLogger=(t)=>(key,data)=>
-  t? (t.comment(key+':'),t.comment(JSON.stringify(data,null,2)))
-   : console.log(key,data);
-
+export const newLogger=(t)=>(key,data)=> {
+  if(t) {
+    t.comment(key+':');
+    t.comment(JSON.stringify(data,null,2));
+  } else {
+    console.log(key,data);
+  }
+};

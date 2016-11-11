@@ -17,22 +17,22 @@ const photoUrl=(bucketSpec,id)=>URL.format({
   pathname:`${bucketSpec.bucket}/${id}`
 });
 
-export const getPhotoIdList=(bucketSpec,logger)=>{
+export const getPhotoIdList=async (bucketSpec,logger)=>{
   const url=bucketUrl(bucketSpec);
   logger && logger('getPhotoIdList',bucketSpec,url);
 
-  return fetch(url)
-    .then(r=>r.text())
-    .then(xml2data)
-    .then(r=>r.ListBucketResult.Contents)
-    .then(r=>r.map(d=>d.Key[0]));
+  const conn=await fetch(url);
+  const text=await conn.text();
+  const data=await xml2data(text);
+  const list=data.ListBucketResult.Contents;
+  return list.map(d=>d.Key[0]);
 };
 
-export const getPhotoBuffer=(bucketSpec,id,logger)=>{
+export const getPhotoBuffer=async (bucketSpec,id,logger)=>{
   const url=photoUrl(bucketSpec,id);
   logger && logger('getPhotoBuffer',{id,url});
 
-  return fetch(url)
-    .then(r=>r.buffer());
+  const conn=await fetch(url);
+  return await conn.buffer();
 };
 
